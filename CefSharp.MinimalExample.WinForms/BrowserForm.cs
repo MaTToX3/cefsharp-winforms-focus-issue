@@ -2,7 +2,7 @@
 //
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
-using CefSharp.DevTools.IO;
+//using CefSharp.DevTools.IO;
 using CefSharp.MinimalExample.WinForms.Controls;
 using CefSharp.WinForms;
 using System;
@@ -28,7 +28,8 @@ namespace CefSharp.MinimalExample.WinForms
             Text = title;
             WindowState = FormWindowState.Maximized;
 
-            browser = new ChromiumWebBrowser("www.google.com");
+            string directory = AppDomain.CurrentDomain.BaseDirectory;
+            browser = new ChromiumWebBrowser(directory + "index.html");
             toolStripContainer.ContentPanel.Controls.Add(browser);
 
             browser.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
@@ -68,7 +69,7 @@ namespace CefSharp.MinimalExample.WinForms
             var errorHtml = string.Format("<html><body><h2>Failed to load URL {0} with error {1} ({2}).</h2></body></html>",
                                               e.FailedUrl, e.ErrorText, e.ErrorCode);
 
-            _ = e.Browser.SetMainFrameDocumentContentAsync(errorHtml);
+            //_ = e.Browser.SetMainFrameDocumentContentAsync(errorHtml);
 
             //AddressChanged isn't called for failed Urls so we need to manually update the Url TextBox
             this.InvokeOnUiThreadIfRequired(() => urlTextBox.Text = e.FailedUrl);
@@ -206,7 +207,8 @@ namespace CefSharp.MinimalExample.WinForms
                 // e.g. url.Scheme == Uri.UriSchemeHttp || url.Scheme == Uri.UriSchemeHttps
                 if (url.IsAbsoluteUri)
                 {
-                    browser.LoadUrl(urlString);
+                    //browser.LoadUrl(urlString);
+                    browser.Load(urlString);
 
                     return;
                 }
@@ -218,7 +220,8 @@ namespace CefSharp.MinimalExample.WinForms
 
                 if (hostNameType == UriHostNameType.IPv4 || hostNameType == UriHostNameType.IPv6)
                 {
-                    browser.LoadUrl(urlString);
+                    //browser.LoadUrl(urlString);
+                    browser.Load(urlString);
 
                     return;
                 }
@@ -230,7 +233,8 @@ namespace CefSharp.MinimalExample.WinForms
                         var hostEntry = Dns.GetHostEntry(urlString);
                         if (hostEntry.AddressList.Length > 0)
                         {
-                            browser.LoadUrl(urlString);
+                            //browser.LoadUrl(urlString);
+                            browser.Load(urlString);
 
                             return;
                         }
@@ -245,7 +249,8 @@ namespace CefSharp.MinimalExample.WinForms
             // Failed parsing load urlString is a search engine
             var searchUrl = "https://www.google.com/search?q=" + Uri.EscapeDataString(urlString);
 
-            browser.LoadUrl(searchUrl);
+            //browser.LoadUrl(searchUrl);
+            browser.Load(urlString);
         }
 
         private void ShowDevToolsMenuItemClick(object sender, EventArgs e)

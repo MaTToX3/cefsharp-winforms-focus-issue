@@ -53,18 +53,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms" Version="120.2.70" />
+    <PackageReference Include="CefSharp.WinForms" Version="101.0.180" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="crash_reporter.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk.WindowsDesktop" />
 
-  <Target Name="CefSharpAfterBuildDebug" AfterTargets="AfterBuild">
+  <!--<Target Name="CefSharpAfterBuildDebug" AfterTargets="AfterBuild">
     <CallTarget Targets="CefSharpAfterBuildDiagnostic" />
-  </Target>
+  </Target>-->
 </Project>
