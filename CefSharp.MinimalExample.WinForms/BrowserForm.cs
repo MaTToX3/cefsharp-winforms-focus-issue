@@ -7,6 +7,7 @@ using CefSharp.MinimalExample.WinForms.Controls;
 using CefSharp.WinForms;
 using System;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace CefSharp.MinimalExample.WinForms
@@ -26,10 +27,11 @@ namespace CefSharp.MinimalExample.WinForms
             InitializeComponent();
 
             Text = title;
-            WindowState = FormWindowState.Maximized;
+            //WindowState = FormWindowState.Maximized;
 
             string directory = AppDomain.CurrentDomain.BaseDirectory;
-            browser = new ChromiumWebBrowser(directory + "index.html");
+            browser = new ChromiumWebBrowser("https://google.com");
+            //browser = new ChromiumWebBrowser(directory + "index.html");
             toolStripContainer.ContentPanel.Controls.Add(browser);
 
             browser.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
@@ -79,7 +81,16 @@ namespace CefSharp.MinimalExample.WinForms
         {
             var b = ((ChromiumWebBrowser)sender);
 
-            this.InvokeOnUiThreadIfRequired(() => b.Focus());
+            this.InvokeOnUiThreadIfRequired(() =>
+            {
+
+                var focus = b.Focus();
+                if (!focus)
+                {
+
+                }
+            });
+
         }
 
         private void OnBrowserConsoleMessage(object sender, ConsoleMessageEventArgs args)
@@ -256,6 +267,89 @@ namespace CefSharp.MinimalExample.WinForms
         private void ShowDevToolsMenuItemClick(object sender, EventArgs e)
         {
             browser.ShowDevTools();
+        }
+
+        private void BrowserForm_Activated(object sender, EventArgs e)
+        {
+            //var b = ((ChromiumWebBrowser)sender);
+
+            //this.InvokeOnUiThreadIfRequired(() =>
+            //{
+
+            //    var focus = browser.Focus();
+            //    if (!focus)
+            //    {
+
+            //    }
+            //});
+
+            var focus = browser.Focus();
+            if (!focus)
+            {
+
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var focus = browser.Focus();
+            if (!focus)
+            {
+
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = !panel1.Visible;
+            var focus = browser.Focus();
+            if (!focus)
+            {
+
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = !panel1.Visible;
+        }
+
+        private void test1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = !panel1.Visible;
+        }
+
+        private void BrowserForm_Load(object sender, EventArgs e)
+        {
+        }
+
+        //Timer timer;
+
+        //private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        //{
+        //    timer = new Timer();
+        //    timer.Interval = 5000;
+        //    timer.Tick += Timer_Tick;
+        //    timer.Start();
+        //}
+
+        //private void Timer_Tick(object sender, EventArgs e)
+        //{
+        //    timer.Stop();
+
+        //    panel1.Visible = !panel1.Visible;
+        //    //var focus = browser.Focus();
+        //    //if (!focus)
+        //    //{
+
+        //    //}
+        //    //throw new NotImplementedException();
+        //}
+
+        private void openForToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var f2 = new FormNet();
+            f2.Show();
         }
     }
 }
