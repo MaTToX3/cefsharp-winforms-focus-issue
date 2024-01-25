@@ -10,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CefSharp.MinimalExample.WinForms
 {
@@ -107,5 +108,19 @@ namespace CefSharp.MinimalExample.WinForms
             browserPanel.Visible = false;
             _browser.Focus();
         }
+
+        //private void SetFocus()
+        //{
+        //    if (textBox.InvokeRequired)
+        //    {
+        //        // Call SetFocus method on the UI thread
+        //        textBox.Invoke(new Action(SetFocus));
+        //    }
+        //    else
+        //    {
+        //        // Set focus to the TextBox
+        //        textBox.Focus();
+        //    }
+        //}
     }
 }
